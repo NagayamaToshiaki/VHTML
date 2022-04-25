@@ -108,7 +108,7 @@ HTML extension for allowing more visual based styling
     <h1>VHMLサンプル</h1>
     <h2>サブ見出し</h2>
     <h3>さらにサブ見出し</h3>
-    <p class="beetle">注意：このコードはブラウザには読めません。</> // クラス名はVisArcheの初期生成のままとする。
+    <p class="beetle">注意：このコードはブラウザには読めません。</p> // クラス名はVisArcheの初期生成のままとする。
   </body>
 </html>
 ```
