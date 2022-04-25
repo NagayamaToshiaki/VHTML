@@ -126,3 +126,27 @@ HTML extension for allowing more visual based styling
   background-image:'exclamation.svg'
 }
 ```
+
+### 主な追加属性
+
+`block`、`element`、`modifier`属性。これにより、BEM生成が簡略化できる。
+
+```
+<form block="form" modifier="theme-xmas, simple">
+  <input element="input" type="text" />
+  <input
+    element="submit"
+    modifier="disabled"
+    type="submit" />
+</>
+```
+
+``` html
+<!-- html output -->
+<form class="form form--theme-xmas form--simple">
+  <input class="form__input" type="text" />
+  <input
+    class="form__submit form__submit--disabled"
+    type="submit" />
+</form>
+```
