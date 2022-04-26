@@ -15,16 +15,19 @@ HTML extension for allowing more visual based styling
   "charset":"utf-8", // <meta>要素は名前から書ける
   "title":"{myTitle} - VHMLサンプル",
   "author":"永山俊明",
-  "content-security-policy":"default-src https:",// http-equivもnameも同時に記載可能
-  "description":"プレースホルダー"
-  "og": { // <meta name="og:image"> などに自動変換する
-          "image":"https://developer.mozilla.org/static/img/opengraph-logo.png",
-          "description":"VHMLは扱いやすく、見た目重視のスタイリングがしやすいように拡張されたHTMLです。"
-        },
-  "shortcut icon": { // <link rel="shortcut icon">として展開
-                      "source":"favicon.ico",
-                      "type":"image/x-icon"
-                   },
+  "content-security-policy":"default-src https:", // http-equivもnameも同時に記載可能
+  "description":"プレースホルダー",
+  "og": { // og:imageなどに展開。ogはpropertyとして分類される
+    "image":"https://developer.mozilla.org/static/img/opengraph-logo.png",
+    "og:description":"VHMLは扱いやすく、見た目重視のスタイリングがしやすいように拡張されたHTMLです。",
+  }
+  "shortcut icon": {
+                      "source":"favicon.ico"
+                   }, // <link rel="shortcut icon" source="favicon.ico" type="image/x-icon">として展開
+  "viewport": {
+                "width":"device-width",
+                "initial-scale":"1"
+              }
   "scripts": {
                 "normal.js", // このように書いた場合は通常のJSとしてロードされる
                 {
@@ -35,8 +38,16 @@ HTML extension for allowing more visual based styling
                   "source":"preload.js",
                   "load-type":"preload" // このように書くと自動で<link rel="preload" href="preload.js" as="script">と展開される
                 },
+                {
+                  "source":"critical.js",
+                  "load-type":"critical" // このように書くとcritical.jsがインライン展開される。デフォルトではscriptsの記述した箇所
+                },
+                {
+                  "source":"critical2.js",
+                  "load-type":"critical" // このように書くとcritical.jsがインライン展開される。デフォルトではscriptsの記述した箇所
+                  "where":"styles::after" // CSSセレクタ風に記載可能
+                }
              },
-  "script-critical":"critical.js", // クリティカルなJSの場合は入れる個所が重要なので、このように書くことにする
   "styles": {
               "base.css", // このように書いた場合は普通の<link>としてロードされる
               {
@@ -57,8 +68,7 @@ HTML extension for allowing more visual based styling
                 "media":"screen",
                 "load-type":"critical" // このように書くとクリティカルCSSとして<style>にインライン展開する
               },
-            },
-  "script-critical":"critical2.js", // クリティカルJSの場合は挿入箇所を尊重する
+            }
 }
 ```
 
@@ -68,7 +78,7 @@ HTML extension for allowing more visual based styling
   "description":"VHMLのサンプルページです。", // "scripts", "styles"を除き上書き可能
   "add" : {
             "as":"scripts"
-            "where":"scripts:last-of-type::after" // CSSセレクタ風に記載可能
+            "where":"scripts::after"
             "data": "top.js"
           }
 }
@@ -92,6 +102,7 @@ HTML extension for allowing more visual based styling
     <meta name="og:image" value="https://developer.mozilla.org/static/img/opengraph-logo.png">
     <meta name="og:description" value="VHMLは扱いやすく、見た目重視のスタイリングがしやすいように拡張されたHTMLです。">
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="modal.js"></script>
     <script src="defer.js" defer></script>
     <script src="top.js"></script>
